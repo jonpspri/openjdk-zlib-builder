@@ -10,15 +10,6 @@ ARG ZLIB_BUILD_DIR=/builder/build
 ARG GLIBC_COMPAT_DIR=/usr/glibc-compat
 
 #
-#  This is likely to be changed, though one should try to match the tag
-#  to the argument.  To wit:
-#
-#    ZLIB_VERSION=1.2.11 docker build --build-arg ZLIB_VERSION=$ZLIB_VERSION \
-#        --tag openjdk-zlib-build:$ZLIB_VERSION
-#
-ARG ZLIB_VERSION=1.2.11
-
-#
 #  Don't mess with this.  We use pipelines in the RUN steps and we want failures
 #  to propagate outward to the &&s
 #
@@ -34,6 +25,15 @@ RUN apt-get -q update \
 		ca-certificates \
 		wget \
 	&& rm -rf /var/apt/lists/*
+
+#
+#  This is likely to be changed, though one should try to match the tag
+#  to the argument.  To wit:
+#
+#    ZLIB_VERSION=1.2.11 docker build --build-arg ZLIB_VERSION=$ZLIB_VERSION \
+#        --tag openjdk-zlib-build:$ZLIB_VERSION
+#
+ARG ZLIB_VERSION=1.2.11
 
 #
 #  Download zlib, check to make sure the server wasn't hacked, and unpack
